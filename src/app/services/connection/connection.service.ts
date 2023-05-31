@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, switchMap } from 'rxjs';
-import { Pokemon } from '../model/pokemon';
-import { Ability } from '../model/ability';
-import { BaseData } from '../model/base-data';
+import { Ability, Pokemon } from 'src/app/model/ability';
+import { BaseData } from 'src/app/model/base-data';
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +90,7 @@ export class ConnectionService {
   getFirstAbilityObservable(): Observable<Ability>{
 
     return this.http.get<Pokemon>(this.DITTO_URL).pipe(
-      switchMap((ditto) => {
+      switchMap((ditto: any) => {
         const abilities = ditto.abilities;
         const firstAbilityInfo = abilities[0];
         const ability = firstAbilityInfo.ability;
@@ -122,7 +121,7 @@ export class ConnectionService {
   getAllPokemonsWithObservable(): Observable<Pokemon[]>{
 
     return this.http.get<BaseData>(this.ALL_POKEMON_URL).pipe(
-      switchMap(pokemons => {
+      switchMap((pokemons: any) => {
         const results = pokemons.results;
         const getArray = [];
         for (const result of results) {
